@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Welcom to the MultiNet Controller App</string>
+    <string name="app_name">Multinet Controller</string>
+    
+    <string name="listNetworks">Network List</string>
+    <string name="addNetwork">Add New Device</string>
+    <string name="test">This is a test</string>
+
+</resources>

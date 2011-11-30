@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory android:title="User Settings" android:key="userSettings">
+        <EditTextPreference android:title="User Name" android:key="username" android:summary="MultiNet Admin Username"/>
+        <EditTextPreference android:title="Password" android:key="passwd" android:summary="MultiNet Admin User Password"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Router Settings" android:key="routersettings">
+        <EditTextPreference android:title="Router ssid" android:key="ssid" android:summary="The ssid of your router" />
+        <EditTextPreference android:title="Router WPA Passprase" android:key="passprase" android:summary="The ssid of your router" />
+        <EditTextPreference android:title="Router IP" android:key="routerIp" android:summary="The IP adress of your router" />
+        <EditTextPreference android:title="Router Port" android:key="routerPort" android:summary="The port for your routers admin interface" />
+    </PreferenceCategory>
+</PreferenceScreen>
