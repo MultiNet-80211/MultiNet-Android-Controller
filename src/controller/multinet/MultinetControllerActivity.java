@@ -230,15 +230,12 @@ public class MultinetControllerActivity extends Activity {
      */
     private boolean setUpMultiNetAPI() {
     	//setup the router API
-    	if(router == null) {
-    		router = new MultiNetAPI(
-    							settings.getString("routerIp", ""),
-    							settings.getString("routerPort", ""),
-    							settings.getString("username", ""),
-    							settings.getString("passwd", "")
-    						);
-    	}
-    	
+		router = new MultiNetAPI(
+							settings.getString("routerIp", ""),
+							settings.getString("routerPort", ""),
+							settings.getString("username", ""),
+							settings.getString("passwd", "")
+						);
 		return true;
 	}
     
