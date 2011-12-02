@@ -315,22 +315,27 @@ public class MultinetControllerActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
+		Intent intent = null;
 		switch (id) {
 		// We have only one menu option
 		case R.id.settingsMenu:
 			// Launch Preference activity
-			Intent i = new Intent(MultinetControllerActivity.this, settingsActivity.class);
-			startActivity(i);
+			intent = new Intent(MultinetControllerActivity.this, SettingsActivity.class);
+			startActivity(intent);
 			// Some feedback to the user
 			Toast.makeText(MultinetControllerActivity.this,"Here you can enter your user credentials.", Toast.LENGTH_LONG).show();
 			break;
 		case R.id.addDevice:
 			//start the xzing intent
-			Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+			intent = new Intent("com.google.zxing.client.android.SCAN");
 	        intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
 	        startActivityForResult(intent, 0);
 			break;
-
+		case R.id.addDeviceManually:
+			intent = new Intent(MultinetControllerActivity.this, AddDeviceManually.class);
+			startActivity(intent);
+			Toast.makeText(MultinetControllerActivity.this,"Press Back once you have finished", Toast.LENGTH_LONG).show();
+			break;
 		}
 		return true;
 	}
@@ -342,7 +347,7 @@ public class MultinetControllerActivity extends Activity {
     public void myClickHandler(View view) {
 		switch (view.getId()) {
 		case R.id.goTosettings:
-			Intent i = new Intent(MultinetControllerActivity.this, settingsActivity.class);
+			Intent i = new Intent(MultinetControllerActivity.this, SettingsActivity.class);
 			startActivityForResult(i,99);
 			break;
 		case R.id.goToqrcode:
