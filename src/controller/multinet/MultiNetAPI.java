@@ -13,6 +13,7 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.xmlpull.v1.XmlPullParser;
 
+import android.util.Base64;
 import android.util.Log;
 import android.util.Xml;
 
@@ -98,11 +99,23 @@ public class MultiNetAPI {
 			HttpParams httpParameters = new BasicHttpParams();
 			HttpConnectionParams.setConnectionTimeout(httpParameters, 3000);
 			HttpConnectionParams.setSoTimeout(httpParameters, 5000);
-			
+
 			HttpClient client = new DefaultHttpClient(httpParameters);
 			HttpGet request = new HttpGet(url);
 			
+			//basic HTTP auth
+			String auth = this.routerUsername + ":" + this.routerPassword;
+			auth = Base64.encodeToString(auth.getBytes(),0);
+			request.setHeader("Authorization", "Basic " +  auth);
+
 			HttpResponse response = client.execute(request);
+			
+			//check for Unauthorized message
+			if(response.getStatusLine().getReasonPhrase().equalsIgnoreCase("Unauthorized") ) {
+				this.error = "Incorrect username and/or password please check your settings";
+				return false;
+			}
+			
 			// Get the response
 			BufferedReader rd = new BufferedReader(new InputStreamReader(
 					response.getEntity().getContent()));

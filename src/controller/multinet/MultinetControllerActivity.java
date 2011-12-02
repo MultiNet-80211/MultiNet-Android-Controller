@@ -131,6 +131,12 @@ public class MultinetControllerActivity extends Activity {
 		if(settings.getString("routerPort", "") == "") {
 			return false;
 		}
+		if(settings.getString("username", "") == "") {
+			return false;
+		}
+		if(settings.getString("passwd", "") == "") {
+			return false;
+		}
 		return true;
 	}
 	
