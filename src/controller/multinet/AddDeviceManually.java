@@ -9,11 +9,13 @@ import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.webkit.WebViewDatabase;
 
 public class AddDeviceManually extends Activity{
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	super.onCreate(savedInstanceState);
     	
     	//get the settings
     	SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
@@ -27,7 +29,7 @@ public class AddDeviceManually extends Activity{
         WebView myWebView = (WebView) findViewById(R.id.webView);
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        myWebView.setWebViewClient(new WebViewClient());
+        myWebView.setWebViewClient(new myWebViewClient( settings.getString("username", ""),settings.getString("passwd", "") ));
 
         String protocall = null;
         if(settings.getString("routerPort", "").equals("443")) {
@@ -42,11 +44,12 @@ public class AddDeviceManually extends Activity{
         			  settings.getString("routerPort", "80") +
         			  "/generate.html";
         
-        myWebView.setHttpAuthUsernamePassword(	settings.getString("routerIp", ""), 
-        										"MultiNet", 
-        										settings.getString("username", ""), 
-        										settings.getString("passwd", "")
-        									 );
+        //myWebView.setHttpAuthUsernamePassword(	settings.getString("routerIp", ""), 
+       // 										"MultiNet", 
+        //										settings.getString("username", ""), 
+        //										settings.getString("passwd", "")
+        //									 );
+                
         myWebView.loadUrl(url);
     }
 }
