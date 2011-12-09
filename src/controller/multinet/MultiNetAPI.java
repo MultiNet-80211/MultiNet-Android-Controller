@@ -79,8 +79,8 @@ public class MultiNetAPI {
 					 this.routerIP + ":" + 
 					 this.routerPort + "/" + 
 					 "create/" +
-					 action[0] + "/" +
-					 action[1] + "/";
+					 action[1] + "/" +
+					 action[2] + "/";
 		
 		Log.v(TAG, "addNetwork: " + url);
 		return getRequest(url);
