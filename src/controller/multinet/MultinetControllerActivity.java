@@ -147,6 +147,8 @@ public class MultinetControllerActivity extends Activity {
      */
     private boolean connectToAdminNetwork() {
     	
+    	//TODO android locks a network if it has 3 or more failed join attempts - this needed fixing or unlocking  
+    	
     	if (Build.MODEL.equalsIgnoreCase("sdk")) {
     		//we are in the emulator 
     		return true;
@@ -167,7 +169,7 @@ public class MultinetControllerActivity extends Activity {
     	
     	//get current wifi info
     	WifiInfo wifiInfo = wifi.getConnectionInfo();
-    	if(wifiInfo.getSSID() == settings.getString("ssid", "")) {
+    	if(wifiInfo.getSSID().contentEquals(settings.getString("ssid", ""))) {
     		//we are connected !
     		return true;
     	}
