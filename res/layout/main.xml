@@ -4,38 +4,37 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/listNetworks"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-       
-            <ScrollView
-                android:id="@+id/scrollView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-                <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-                </LinearLayout>
-            </ScrollView>
-
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:text="@string/listNetworks"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-	</LinearLayout>
-
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </LinearLayout>
+    </ScrollView>
+
     <ListView
         android:id="@+id/networkList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
+        android:layout_height="338dp"
+        android:layout_weight="0.85" >
     </ListView>
+
+    <Button
+        android:id="@+id/addNewDevice"
+        android:layout_width="match_parent"
+        android:layout_height="91dp"
+        android:onClick="myClickHandler"
+        android:text="Add New Device" />
 
 </LinearLayout>

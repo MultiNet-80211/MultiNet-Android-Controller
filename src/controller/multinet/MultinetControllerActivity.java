@@ -2,6 +2,8 @@ package controller.multinet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.net.InetAddress;
+import java.net.Socket;
 
 import android.app.Activity;
 import android.content.Context;
@@ -169,9 +171,12 @@ public class MultinetControllerActivity extends Activity {
     	
     	//get current wifi info
     	WifiInfo wifiInfo = wifi.getConnectionInfo();
-    	if(wifiInfo.getSSID().contentEquals(settings.getString("ssid", ""))) {
-    		//we are connected !
-    		return true;
+    	String ssid = wifiInfo.getSSID();
+    	if(ssid != null) {
+	    	if(ssid.contentEquals(settings.getString("ssid", ""))) {
+	    		//we are connected !
+	    		return true;
+	    	}
     	}
     	
     	//is the admin network configured ?
@@ -218,7 +223,7 @@ public class MultinetControllerActivity extends Activity {
     		}
     		
     		if(!isInRange) {
-    			//admin network not would in scan
+    			//admin network was not in scan
     			return false;
     		}
     	}
@@ -226,6 +231,17 @@ public class MultinetControllerActivity extends Activity {
     	
     	if(connected) {
     		//we are connected !
+    		
+    		//TODO FIX THIS
+    		//make sure we have network access
+    		try {
+    		    Socket socket = new Socket(settings.getString("routerIp", ""), Integer.parseInt((settings.getString("routerPort", "80"))));
+    		    if (socket.getLocalAddress() == InetAddress.getByAddress(null)) {
+    		    	return false;
+    		    }
+    		} catch (Exception e) {
+    			return false;
+    		}
     		return true;
     	}
     	
@@ -352,6 +368,7 @@ public class MultinetControllerActivity extends Activity {
 			Intent i = new Intent(MultinetControllerActivity.this, SettingsActivity.class);
 			startActivityForResult(i,99);
 			break;
+		case R.id.addNewDevice:
 		case R.id.goToqrcode:
 			//start the xzing intent
 			Intent intent = new Intent("com.google.zxing.client.android.SCAN");
@@ -372,7 +389,7 @@ public class MultinetControllerActivity extends Activity {
             if (resultCode == RESULT_OK) {
                 String contents = intent.getStringExtra("SCAN_RESULT");
                 String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
-                Toast.makeText(MultinetControllerActivity.this, contents,Toast.LENGTH_LONG).show();
+                //Toast.makeText(MultinetControllerActivity.this, contents,Toast.LENGTH_LONG).show();
                 handleQRcode(contents, format);
             } else if (resultCode == RESULT_CANCELED) {
             	Toast.makeText(MultinetControllerActivity.this,	"No QRcode scanned :-(",Toast.LENGTH_LONG).show();
