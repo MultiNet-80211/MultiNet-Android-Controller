@@ -25,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,6 +41,8 @@ public class MultinetControllerActivity extends Activity {
 	private Handler myEventHandler = new Handler();
 	private static final String TAG = "MultinetControllerActivity";
 	
+	String selectedNetwork = null; //string to hold the listItem selected by the user
+	
 	
 	private Runnable myUpdate = new Runnable() {
 		   public void run() {
@@ -51,12 +54,9 @@ public class MultinetControllerActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-                
         //get the settings
         settings = PreferenceManager.getDefaultSharedPreferences(this);
-        
 	    update();
-        
     }
     
     @Override
@@ -289,7 +289,9 @@ public class MultinetControllerActivity extends Activity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
     	super.onCreateContextMenu(menu, v, menuInfo);
     	if (v.getId()==R.id.networkList) {
-    		menu.setHeaderTitle("Actions");
+    		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+    		selectedNetwork = ((TextView) info.targetView).getText().toString();
+    		menu.setHeaderTitle(selectedNetwork);
     		MenuInflater inflater = getMenuInflater();
     		inflater.inflate(R.menu.network_context_menu, menu);
     	}
@@ -297,17 +299,14 @@ public class MultinetControllerActivity extends Activity {
     
     public boolean onContextItemSelected (MenuItem item) {
     	
-    	//TODO Make this better should not use strings in the if!!!
-    	    	
-    	if (item.getTitle() == "Network Information") {
+    	if (item.getItemId() == R.id.netInfo) {
     		item.getItemId();
     		router.getNetworkInfo();
     		//TODO Launch new intent to show network info
     	}
-    	
-    	if (item.getTitle() == "Remove Network") {
-    		item.getItemId();
-    		router.removeNetwork();
+    	    	
+    	if (item.getItemId() == R.id.netDel) {
+    		router.removeNetwork(selectedNetwork);
     		//TODO give some feedback
     		populateNetworkList();
     	}
@@ -426,7 +425,7 @@ public class MultinetControllerActivity extends Activity {
 	    	if(router != null) {
 		    	if(router.addNetwork(contents,format)) {
 		    		populateNetworkList();
-		    		Toast.makeText(MultinetControllerActivity.this,	"Network Added",Toast.LENGTH_LONG).show();
+		    		Toast.makeText(MultinetControllerActivity.this,	temp[1] + " Added",Toast.LENGTH_LONG).show();
 		    	} else {
 		    		Toast.makeText(MultinetControllerActivity.this,	"Failed to add network",Toast.LENGTH_LONG).show();
 		    	}

@@ -64,9 +64,15 @@ public class MultiNetAPI {
 		
 	}
 	
-	public void removeNetwork() {
-		// TODO Auto-generated method stub
-		
+	public Boolean removeNetwork(String ssid) {
+		String url = this.protocall + "://" + 
+				 this.routerIP + ":" + 
+				 this.routerPort + "/" + 
+				 "remove/" +
+				 ssid + "/";
+	
+		Log.v(TAG, "removeNetwork: " + url);
+		return getRequest(url);
 	}
 
 	public Boolean addNetwork(String contents, String format) {
@@ -97,8 +103,8 @@ public class MultiNetAPI {
 			//TODO handle missing service
 			
 			HttpParams httpParameters = new BasicHttpParams();
-			HttpConnectionParams.setConnectionTimeout(httpParameters, 3000);
-			HttpConnectionParams.setSoTimeout(httpParameters, 5000);
+			HttpConnectionParams.setConnectionTimeout(httpParameters, 5000);
+			HttpConnectionParams.setSoTimeout(httpParameters, 10000);
 
 			HttpClient client = new DefaultHttpClient(httpParameters);
 			HttpGet request = new HttpGet(url);
