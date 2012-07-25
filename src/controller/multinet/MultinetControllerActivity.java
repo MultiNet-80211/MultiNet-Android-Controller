@@ -306,7 +306,21 @@ public class MultinetControllerActivity extends Activity {
     	}
     	    	
     	if (item.getItemId() == R.id.netDel) {
-    		router.removeNetwork(selectedNetwork);
+    		//TODO 
+    		
+    		int j = 0;
+    		String delSSID = "";
+    		while (j < this.avNetworks.size()) {
+    			MultinetNetwork tmpNetwork = this.avNetworks.get(j);
+    			if(tmpNetwork.deviceName.compareToIgnoreCase(selectedNetwork) == 0) {
+    				delSSID = tmpNetwork.ssid;
+    				break;
+    			}
+    			j++;
+    		}
+    		if(delSSID != "") {
+    		  router.removeNetwork(delSSID);
+    		}
     		//TODO give some feedback
     		populateNetworkList();
     	}

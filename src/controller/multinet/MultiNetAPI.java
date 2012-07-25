@@ -86,7 +86,8 @@ public class MultiNetAPI {
 					 this.routerPort + "/" + 
 					 "create/" +
 					 action[1] + "/" +
-					 action[2] + "/";
+					 action[2] + "/" +
+					 action[3] + "/";
 		
 		Log.v(TAG, "addNetwork: " + url);
 		return getRequest(url);
@@ -148,6 +149,9 @@ public class MultiNetAPI {
                         } else if (currentNetwork != null){
                             if (name.equalsIgnoreCase("ssid")){
                             	currentNetwork.ssid = p.nextText();
+                            }
+                            if (name.equalsIgnoreCase("devicename")){
+                            	currentNetwork.setDeviceName(p.nextText());
                             } 
                             if (name.equalsIgnoreCase("active")){
                             	currentNetwork.setActive(p.nextText());
