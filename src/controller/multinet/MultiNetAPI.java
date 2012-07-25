@@ -80,14 +80,25 @@ public class MultiNetAPI {
 		String[] action;
 		
 		action = contents.split(this.delimiter);
-		
-		String url = this.protocall + "://" + 
+		String url = "";
+		if(action.length == 3) {
+			//no device name in the qrcode use the ssid
+			url = this.protocall + "://" + 
 					 this.routerIP + ":" + 
 					 this.routerPort + "/" + 
 					 "create/" +
 					 action[1] + "/" +
 					 action[2] + "/" +
-					 action[3] + "/";
+					 action[1] + "/";
+		} else {
+			url = this.protocall + "://" + 
+						 this.routerIP + ":" + 
+						 this.routerPort + "/" + 
+						 "create/" +
+						 action[1] + "/" +
+						 action[2] + "/" +
+						 action[3] + "/";
+		}
 		
 		Log.v(TAG, "addNetwork: " + url);
 		return getRequest(url);
@@ -193,7 +204,7 @@ public class MultiNetAPI {
 			return false;
 		}
 		
-		if(!networks.isEmpty()) {
+		if(networks != null) {
 			return true;
 		} else if (currentResult.equalsIgnoreCase("true")) {
 			return true;
